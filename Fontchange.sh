@@ -13,6 +13,13 @@
 
   0. You just DO WHAT THE FUCK YOU WANT TO.
   '
-#Removes all the garbage files produced by LaTeX during compilation.
 
-find .. \( -name "*.aux" -or -name "*.dvi" -or -name "*.idx" -or -name "*.ilg" -or -name "*.ind" -or -name "*.toc" -or -name "*.log" -or -name "*.bib" -or -name "*.synctex.gz" -or -name "*.toc" \) -delete
+#Script searches tex files and replaces common Word-to-TeX conversions. 
+
+files="$@"
+for file in $files
+do
+	sed -i '' 's/\\begin{exercise}\ \\hfill/ \\fontsize{10.5pt}{12.5pt}\ \\selectfont \\begin{exercise}\ \\hfill /g' $file
+     	sed -i '' 's/\\section{Chapter Problems}/\\fontsize{10.5pt}{12.5pt}\ \\selectfont \\section{Chapter Problems}/g' $file
+	sed -i '' 's/\\selectfont\ \\clearpage/\\selectfont/g' $file
+done
